@@ -63,7 +63,7 @@ class App extends Component {
       storageValue: response 
     });
   };
-
+ 
   captureFile =(event) => {
     event.stopPropagation()
     event.preventDefault()
