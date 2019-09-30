@@ -184,11 +184,14 @@ convertToBuffer = async(reader) => {
                   recieversHash : event.target.value
                 })
               }}/>
-            </label>
+            </label> 
             <input type="submit" value="send"/>
           </form>
         </div>
         <hr />
+        <div>
+          Here will come all files that other users has shared with you!
+        </div>
       </div>
     );
   }
