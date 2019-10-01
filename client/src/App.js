@@ -16,10 +16,11 @@ class App extends Component {
       contract: null,
       uploadedFiles : [],
       fileHash : "",
-      recieversAddress : "",
+      recieversAddress : "0xe20660F0fe103d036C2402cE09e0d27b810625E6",
       recieversHash : "",
       recievedFiles : [],
-      buffer : ""
+      buffer : "",
+      totalRecievedFiles : -1
     };
 
     this.captureFile = this.captureFile.bind(this);
@@ -52,6 +53,7 @@ class App extends Component {
   onStart = async () =>{
     this.getOwnerOfContract();
     this.fetchFiles();
+    this.recieveAFile();
   }
 
   getOwnerOfContract = async () => {
@@ -64,6 +66,7 @@ class App extends Component {
     });
   };
  
+
   captureFile =(event) => {
     event.stopPropagation()
     event.preventDefault()
@@ -115,11 +118,10 @@ convertToBuffer = async(reader) => {
     */
       const { contract ,accounts} = this.state;
       let files = [];
-      const count = await contract.methods.fetchTotalCount().call();
+      const count = await contract.methods.fetchTotalCount().call({from : accounts[0]});
       console.log(count);
-
       for(var i=0;i<=count;i++){
-        const response = await contract.methods.fetchAFile(i).call();
+        const response = await contract.methods.fetchAFile(i).call({from : accounts[0]});
         files.push(response);
         console.log(response)
       }
@@ -133,14 +135,30 @@ convertToBuffer = async(reader) => {
       TODO :Get wallet id and hash of file from the form
             Pass the values to the smart contract     
     */
-   e.preventDefault();
-    console.log("Share A file ",this.state.recieversHash," to",this.state.recieversAddress)
+    e.preventDefault();
+    const {contract,accounts} = this.state;
+    await contract.methods.shareAFile(this.state.recieversAddress,this.state.recieversHash).send({from:accounts[0]});
+    console.log("Shared A file ",this.state.recieversHash," to",this.state.recieversAddress)
   }
 
   recieveAFile = async () =>{
     /*
       TODO :Same as fetch files
     */
+   const {contract,accounts} = this.state;
+   const count = await contract.methods.fetchSharedWithUserFileCount().call({from:accounts[0]});
+   this.setState({
+     totalRecievedFiles : count
+   })
+   let files = []
+   for(var i=1;i<=count;i++){
+     const response = await contract.methods.fetchASharedFile(i).call({from:accounts[0]})
+     console.log(response)
+     files.push(response)
+   }
+   this.setState({
+     recievedFiles:files
+   })
    console.log("recieve a file")
   }
 
@@ -150,7 +168,7 @@ convertToBuffer = async(reader) => {
     }
     return (
       <div className="App">
-        <div>Owner of smart contract is : {this.state.storageValue}</div>
+        <div>Your address is : {this.state.accounts[0]}</div>
         <hr />
         <div>
           <form onSubmit={this.uploadFile}>
@@ -163,7 +181,14 @@ convertToBuffer = async(reader) => {
           Uploaded files will come here
           <ul>
             {this.state.uploadedFiles.map((hash,index)=>(
-              <li><a href={`https://gateway.ipfs.io/ipfs/${hash}`} key={index} target="_blank">{hash}</a></li>
+              <li>
+                <a href={`https://gateway.ipfs.io/ipfs/${hash}`} key={index} target="_blank">
+                  {hash}
+                </a>
+                <button onClick={()=>this.setState({
+                  recieversHash:hash
+                })}>send this hash</button>
+              </li>
             ))}
           </ul>
         </div>
@@ -191,6 +216,19 @@ convertToBuffer = async(reader) => {
         <hr />
         <div>
           Here will come all files that other users has shared with you!
+           = {this.state.totalRecievedFiles}
+           <ul>
+             {
+               this.state.recievedFiles.map((data,index) =>(
+                 <li key={index}>
+                  <a href={`https://gateway.ipfs.io/ipfs/${data[1]}`} key={index} target="_blank">
+                    {data[1]}
+                  </a>
+                  <sub>sent by {data[0]}</sub>
+                 </li>
+               ))
+             }
+           </ul>
         </div>
       </div>
     );
