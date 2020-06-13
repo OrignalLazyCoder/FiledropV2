@@ -10659,12 +10659,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x6cCEE618FB882600012E257e68C568f58d6c85a8",
-      "transactionHash": "0xeeee25b8ceef2ec5237a6eb495cb876582fd0714e722d903a2847caf7ef9aeff"
+      "address": "0xbBeED0764Ea70886096E881a262944368755F0C5",
+      "transactionHash": "0xd993834c589cbe892dda37dc446e4e21293597926120c378acd0107876894e21"
     }
   },
   "schemaVersion": "3.2.0",
-  "updatedAt": "2020-06-03T17:12:13.763Z",
+  "updatedAt": "2020-06-13T13:57:57.832Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

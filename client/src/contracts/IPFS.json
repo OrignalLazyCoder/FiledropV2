@@ -4473,12 +4473,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x27dB8105AFdf1d725ec4155c405e499f7025b5cf",
-      "transactionHash": "0x47ccff8fb2be0696183cf026555e66f281a4770d83ba80efaef602b305ba0bd6"
+      "address": "0x491B737d12FC4D25EeF4eF2397601B0E603742A0",
+      "transactionHash": "0x026f70a823b6a986f59439a9a89c24538342eb6dd07109bb97bbc8dca4e394fa"
     }
   },
   "schemaVersion": "3.2.0",
-  "updatedAt": "2020-06-03T17:12:13.011Z",
+  "updatedAt": "2020-06-13T13:57:56.683Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

@@ -5,6 +5,7 @@ import Home from './Home';
 import Faq from './Faq';
 import Drive from './Drive';
 import UserActicty from './UserActivity';
+import icon from './static/icon.png'
 
 
 class Index extends Component {
@@ -27,6 +28,7 @@ class Index extends Component {
             <Router>
                 <div className="navigation">
                 <ul>
+                    <li><img src={icon} width={'80px'} height={'80px'}/></li>
                     <li onClick={this.updateCount}><a><Link to='/'>Home</Link></a></li>
                     <li onClick={this.updateCount}><a><Link to='/faq'>Faq</Link></a></li>
                     <li onClick={this.updateCount}><a><Link to='/myDrive'>My Drive</Link></a></li>

@@ -12,7 +12,7 @@ class Home extends Component {
                     <img className="center-fit" src={one} />
                 </div>
                 <div className="imgbox">
-                    <img className="center-fit" src={two} /> 
+                    <img className="center-fit" src={two} />
                 </div>
                 <div className="imgbox">
                     <img className="center-fit" src={three} />

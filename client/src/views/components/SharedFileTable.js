@@ -12,7 +12,7 @@ class SharedFileTable extends Component {
     render() {
         return (
             <TableContainer>
-                <Table className={{minWidth: 650}}>
+                <Table className={{ minWidth: 650 }}>
                     <TableHead>
                         <TableRow>
                             <TableCell>#</TableCell>
@@ -24,12 +24,12 @@ class SharedFileTable extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.files.map((file,index)=>{
-                            return(
+                        {this.props.files.map((file, index) => {
+                            return (
                                 <TableRow>
-                                    <TableCell>{index+1}</TableCell>
+                                    <TableCell>{index + 1}</TableCell>
                                     <TableCell>{file[1]}</TableCell>
-                                    <TableCell><a href={`https://gateway.ipfs.io/ipfs/${file[0]}`}>{file[0]}</a></TableCell>
+                                    <TableCell><a href={`https://gateway.ipfs.io/ipfs/${file[0]}`} target={'_blank'}>{file[0]}</a></TableCell>
                                     <TableCell>{file[4]}</TableCell>
                                     <TableCell>{moment.unix(file[2]).toString()}</TableCell>
                                     <TableCell>{moment.unix(file[3]).toString()}</TableCell>

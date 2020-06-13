@@ -12,8 +12,8 @@ class FileTable extends Component {
     render() {
         return (
             <div>
-                    <TableContainer>
-                    <Table className={{minWidth: 650}}>
+                <TableContainer>
+                    <Table className={{ minWidth: 650 }}>
                         <TableHead>
                             <TableRow>
                                 <TableCell>#</TableCell>
@@ -22,26 +22,26 @@ class FileTable extends Component {
                                 <TableCell>File time</TableCell>
                                 <TableCell>Action</TableCell>
                             </TableRow>
-                            
+
                         </TableHead>
                         <TableBody>
-                        {this.props.files.map((file,index) => {
-                            return(
-                                <TableRow  key={index}>
-                                    <TableCell component="th" scope="row" >{index+1}</TableCell>
-                                    <TableCell>{file[1]}</TableCell>
-                                    <TableCell><a href={`https://gateway.ipfs.io/ipfs/${file[0]}`}>{file[0]}</a></TableCell>
-                                    <TableCell>{moment.unix(file[2]).toString()}</TableCell>
-                                    <TableCell>
-                                        <span><Button variant="contained" color="primary" onClick={()=>{this.props.shareAfile(index)}}>Share File</Button></span> &nbsp;
-                                        <span><a href={`https://gateway.ipfs.io/ipfs/${file[0]}`} download><Button variant="contained" color="primary">Download</Button></a></span>
-                                    </TableCell>
-                            </TableRow >
-                            )
-                        })}
+                            {this.props.files.map((file, index) => {
+                                return (
+                                    <TableRow key={index}>
+                                        <TableCell component="th" scope="row" >{index + 1}</TableCell>
+                                        <TableCell>{file[1]}</TableCell>
+                                        <TableCell><a href={`https://gateway.ipfs.io/ipfs/${file[0]}`} target={'_blank'}>{file[0]}</a></TableCell>
+                                        <TableCell>{moment.unix(file[2]).toString()}</TableCell>
+                                        <TableCell>
+                                           <span><Button variant="contained" color="primary" onClick={() => { this.props.shareAfile(index) }}>Share File</Button></span> &nbsp;
+                                        <span><a href={`https://gateway.ipfs.io/ipfs/${file[0]}`} target={'_blank'} download><Button variant="contained" color="primary">Download</Button></a></span>
+                                        </TableCell>
+                                    </TableRow >
+                                )
+                            })}
                         </TableBody>
                     </Table>
-                    </TableContainer>
+                </TableContainer>
             </div>
         );
     }

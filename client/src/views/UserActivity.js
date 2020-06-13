@@ -5,20 +5,20 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 class UserActivity extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            accounts:null,
-            web3:null,
-            contract:null,
-            activities:[],
-            activitiesCount:null,
+            accounts: null,
+            web3: null,
+            contract: null,
+            activities: [],
+            activitiesCount: null,
             busy: true
         }
     }
 
-    componentDidMount = async() =>{
-        try{
+    componentDidMount = async () => {
+        try {
             const web3 = await getWeb3();
             let accounts = await web3.eth.getAccounts();
             const networkId = await web3.eth.net.getId();
@@ -30,24 +30,24 @@ class UserActivity extends Component {
             this.setState({
                 web3,
                 accounts,
-                contract : instance
+                contract: instance
             }, this.onStart);
-        }catch(error){
+        } catch (error) {
             alert('unable to connect to blockchain or metamask. Please press F12 and check errors in console');
             console.log(error);
         }
     }
 
-    onStart = async() =>{
-        const {contract,accounts} = this.state;
-        const count = await contract.methods.fetchUserActivityCount().call({from:accounts[0]});
+    onStart = async () => {
+        const { contract, accounts } = this.state;
+        const count = await contract.methods.fetchUserActivityCount().call({ from: accounts[0] });
         let activity = []
-        for(var i=1;i<=count;i++){
-            const response = await contract.methods.fetchUserActivity(i).call({from:accounts[0]})
+        for (var i = 1; i <= count; i++) {
+            const response = await contract.methods.fetchUserActivity(i).call({ from: accounts[0] })
             activity.push(response);
         }
         this.setState({
-            activities:activity,
+            activities: activity,
             busy: false
         })
     }
@@ -56,17 +56,17 @@ class UserActivity extends Component {
         return (
             <div>
                 {
-                    (this.state.busy) ? <div><LinearProgress color="secondary" /> <br /></div>: null
+                    (this.state.busy) ? <div><LinearProgress color="secondary" /> <br /></div> : null
                 }
                 <h3>Your activities on our network</h3>
                 <ul>
-                {
-                    this.state.activities.map((activity,index) => {
-                        return(
-                            <li key={index}>{activity}</li>
-                        )
-                    })
-                }
+                    {
+                        this.state.activities.map((activity, index) => {
+                            return (
+                                <li key={index}>{activity}</li>
+                            )
+                        })
+                    }
                 </ul>
             </div>
         );
