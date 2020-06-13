@@ -1,0 +1,13 @@
+.uploadButton .MuiButtonBase-root.MuiFab-root.MuiFab-secondary{
+    position: fixed;
+    bottom: 5px;
+    right: 75px;
+    z-index: 2;
+}
+
+.sharedButton .MuiButtonBase-root.MuiFab-root.MuiFab-secondary{
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    z-index: 2;
+}

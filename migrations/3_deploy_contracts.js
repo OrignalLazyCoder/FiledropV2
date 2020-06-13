@@ -1,5 +1,5 @@
-var IPFS = artifacts.require("./IPFS.sol");
+var Filedrop = artifacts.require("./Filedrop.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(IPFS);
+  deployer.deploy(Filedrop);
 };
