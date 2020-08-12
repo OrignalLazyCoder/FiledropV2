@@ -144,14 +144,14 @@ class Drive extends Component {
             alert('choose a file first');
         }
         else {
-
             const selectedFile = this.state.userFiles[this.state.index]
             const activity = `you shared file ${selectedFile[1]} with ${this.state.recieversAddress}`;
             const { contract, accounts } = this.state;
             this.setState({ busy: true })
-            const response = await contract.methods.fetchAFile(this.state.index).call({ from: accounts[0] });
+            const response = await contract.methods.fetchAFile(this.state.index + 1).call({ from: accounts[0] });
+            console.log(response);
             await contract.methods.shareAFile(
-                this.state.index,
+                this.state.index + 1,
                 this.state.recieversAddress,
                 activity
             ).send({ from: accounts[0] }).then(
@@ -185,7 +185,7 @@ class Drive extends Component {
     shareFileButton = async (index) => {
         this.setState({ index });
         const { contract, accounts } = this.state;
-        const response = await contract.methods.fetchAFile(index).call({ from: accounts[0] }).then(
+        const response = await contract.methods.fetchAFile(index + 1).call({ from: accounts[0] }).then(
             this.setState({
                 sharingFile: response
             })
